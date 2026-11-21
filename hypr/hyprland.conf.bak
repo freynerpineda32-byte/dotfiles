@@ -1,0 +1,227 @@
+# ==========================================================
+#                   HYPRLAND CONFIGURATION
+# ==========================================================
+
+
+# ╔══════════════════════════════════════════════════════════╗
+# ║                         MONITORS                         ║
+# ╚══════════════════════════════════════════════════════════╝
+
+monitor = , preferred, auto, 1
+
+
+# ╔══════════════════════════════════════════════════════════╗
+# ║                         AUTOEXEC                         ║
+# ╚══════════════════════════════════════════════════════════╝
+
+# Caelestia shell (solo una instancia)
+exec-once = quickshell -c caelestia
+exec-once = awww-daemon
+
+# Polkit agent (mantener solo uno para evitar conflictos)
+exec-once = systemctl --user start hyprpolkitagent
+
+exec-once = xhost +si:localuser:root
+exec-once = ~/.config/hypr/launch_dash.sh
+exec-once = hypridle
+
+
+# ╔══════════════════════════════════════════════════════════╗
+# ║                   ENVIRONMENT VARIABLES                  ║
+# ╚══════════════════════════════════════════════════════════╝
+
+env = XCURSOR_SIZE,24
+env = HYPRCURSOR_SIZE,24
+
+
+# ╔══════════════════════════════════════════════════════════╗
+# ║                     INPUT & KEYBOARD                     ║
+# ╚══════════════════════════════════════════════════════════╝
+
+input {
+    kb_layout = latam
+    kb_variant =
+    kb_model =
+    kb_options =
+    kb_rules =
+
+    follow_mouse = 1
+    sensitivity = 0
+
+    touchpad {
+        natural_scroll = true
+    }
+}
+
+gestures {
+    gesture = 3, horizontal, workspace
+    workspace_swipe_distance = 700
+}
+
+
+# ╔══════════════════════════════════════════════════════════╗
+# ║                      GENERAL & GAPS                      ║
+# ╚══════════════════════════════════════════════════════════╝
+
+general {
+    gaps_in = 6
+    gaps_out = 12
+    border_size = 0
+
+    col.active_border = rgba(00000000)
+    col.inactive_border = rgba(00000000)
+
+    layout = dwindle
+    allow_tearing = false
+}
+
+
+# ╔══════════════════════════════════════════════════════════╗
+# ║                  DECORATION & EFFECTS                    ║
+# ╚══════════════════════════════════════════════════════════╝
+
+decoration {
+    rounding = 10
+
+    shadow {
+        enabled = true
+        range = 5
+        render_power = 2
+        color = rgba(89dceb2b)
+        color_inactive = rgba(00000011)
+    }
+}
+
+
+# ╔══════════════════════════════════════════════════════════╗
+# ║                        ANIMATIONS                        ║
+# ╚══════════════════════════════════════════════════════════╝
+
+animations {
+    enabled = yes
+
+    bezier = wind, 0.05, 0.9, 0.1, 1.05
+    bezier = winIn, 0.1, 1.1, 0.1, 1.1
+    bezier = winOut, 0.3, -0.3, 0, 1
+    bezier = liner, 1, 1, 1, 1
+
+    animation = windows, 1, 6, wind, slide
+    animation = windowsIn, 1, 6, winIn, slide
+    animation = windowsOut, 1, 5, winOut, slide
+    animation = windowsMove, 1, 5, wind, slide
+    animation = border, 1, 1, liner
+    animation = fade, 1, 7, default
+    animation = workspaces, 1, 5, wind
+}
+
+
+# ╔══════════════════════════════════════════════════════════╗
+# ║                          LAYOUT                          ║
+# ╚══════════════════════════════════════════════════════════╝
+
+dwindle {
+    preserve_split = true 
+}
+
+master {
+    new_status = master
+}
+
+
+# ╔══════════════════════════════════════════════════════════╗
+# ║                       KEYBINDINGS                        ║
+# ╚══════════════════════════════════════════════════════════╝
+
+$mainMod = SUPER
+
+# --- LANZADORES DE APLICACIONES ---
+bind = $mainMod, D, exec, qs -c caelestia toggle launcher
+bind = $mainMod, Space, exec, rofi -show drun
+
+# --- APLICACIONES ESENCIALES Y ACCIONES ---
+bind = $mainMod, Return, exec, kitty
+bind = $mainMod, Q, exec, kitty
+bind = $mainMod, C, killactive,
+bind = $mainMod, M, exit,
+bind = $mainMod, E, exec, thunar
+bind = $mainMod, V, togglefloating,
+bind = $mainMod, L, exec, hyprlock
+bind = $mainMod, S, layoutmsg, togglesplit   # Cambiado a Super + S para evitar conflicto con navegación (HJKL)
+
+# --- MOVER EL FOCO (VENTANAS) ---
+bind = $mainMod, left, movefocus, l
+bind = $mainMod, right, movefocus, r
+bind = $mainMod, up, movefocus, u
+bind = $mainMod, down, movefocus, d
+
+bind = $mainMod, H, movefocus, l
+bind = $mainMod, J, movefocus, d
+bind = $mainMod, K, movefocus, u
+bind = $mainMod, N, movefocus, r             # Cambiado a Super + N (antes compartía L con hyprlock)
+
+# --- PANTALLA COMPLETA ---
+bind = , F11, fullscreen, 0
+bind = $mainMod, F, fullscreen, 0
+
+# --- MOVER VENTANAS DE LUGAR (CON SHIFT) ---
+bind = $mainMod SHIFT, left, movewindow, l
+bind = $mainMod SHIFT, right, movewindow, r
+bind = $mainMod SHIFT, up, movewindow, u
+bind = $mainMod SHIFT, down, movewindow, d
+
+bind = $mainMod SHIFT, H, movewindow, l
+bind = $mainMod SHIFT, J, movewindow, d
+bind = $mainMod SHIFT, K, movewindow, u
+bind = $mainMod SHIFT, N, movewindow, r      # Ajustado para coincidir con la navegación N
+
+# --- CAPTURAS DE PANTALLA (SCREENSHOTS) ---
+bind = , Print, exec, grim - | swappy -f - || grim ~/Pictures/Screenshots/screenshot_$(date +'%Y%m%d_%H%M%S').png
+bind = $mainMod SHIFT, S, exec, grim -g "$(slurp)" - | wl-copy
+
+# --- CONTROL DE MULTIMEDIA Y VOLUMEN ---
+binde = , XF86AudioRaiseVolume, exec, pamixer -i 2
+binde = , XF86AudioLowerVolume, exec, pamixer -d 2
+bind = , XF86AudioMute, exec, pamixer -t
+binde = , XF86MonBrightnessUp, exec, brightnessctl set +5%
+binde = , XF86MonBrightnessDown, exec, brightnessctl set 5%-
+
+bind = , XF86AudioPlay, exec, playerctl play-pause
+bind = , XF86AudioNext, exec, playerctl next
+bind = , XF86AudioPrev, exec, playerctl previous
+
+# --- CAMBIAR DE WORKSPACE (1 al 9) ---
+bind = $mainMod, 1, workspace, 1
+bind = $mainMod, 2, workspace, 2
+bind = $mainMod, 3, workspace, 3
+bind = $mainMod, 4, workspace, 4
+bind = $mainMod, 5, workspace, 5
+bind = $mainMod, 6, workspace, 6
+bind = $mainMod, 7, workspace, 7
+bind = $mainMod, 8, workspace, 8
+bind = $mainMod, 9, workspace, 9
+bind = $mainMod, 0, workspace, 10
+
+# --- MOVER VENTANA ACTIVA A UN WORKSPACE ---
+bind = $mainMod SHIFT, 1, movetoworkspace, 1
+bind = $mainMod SHIFT, 2, movetoworkspace, 2
+bind = $mainMod SHIFT, 3, movetoworkspace, 3
+bind = $mainMod SHIFT, 4, movetoworkspace, 4
+bind = $mainMod SHIFT, 5, movetoworkspace, 5
+bind = $mainMod SHIFT, 6, movetoworkspace, 6
+bind = $mainMod SHIFT, 7, movetoworkspace, 7
+bind = $mainMod SHIFT, 8, movetoworkspace, 8
+bind = $mainMod SHIFT, 9, movetoworkspace, 9
+bind = $mainMod SHIFT, 0, movetoworkspace, 0
+
+# --- MOVER Y REDIMENSIONAR CON EL RATÓN ---
+bindm = $mainMod, mouse:272, movewindow
+bindm = $mainMod, mouse:273, resizewindow
+
+
+# ╔══════════════════════════════════════════════════════════╗
+# ║                       WINDOW RULES                       ║
+# ╚══════════════════════════════════════════════════════════╝
+
+windowrule = tile on, match:title ^(dash_btop)$
+windowrule = tile on, match:title ^(dash_unimatrix)$
+windowrule = tile on, match:title ^(dash_clock)$

@@ -1,0 +1,155 @@
+{
+    "appearance": {
+        "transparency": {
+            "enabled": true
+        }
+    },
+    "background": {
+        "wallpaperEnabled": true
+    },
+    "bar": {
+        "activeWindow": {
+            "compact": false,
+            "inverted": false,
+            "showOnHover": true
+        },
+        "clock": {
+            "background": true,
+            "showDate": true
+        },
+        "persistent": false,
+        "scrollActions": {
+            "brightness": true
+        },
+        "showOnHover": true,
+        "statusIcons": [
+            {
+                "enabled": true,
+                "id": "lockStatus"
+            },
+            {
+                "enabled": true,
+                "id": "audio"
+            },
+            {
+                "enabled": true,
+                "id": "microphone"
+            },
+            {
+                "enabled": false,
+                "id": "kbLayout"
+            },
+            {
+                "enabled": true,
+                "id": "network"
+            },
+            {
+                "enabled": true,
+                "id": "bluetooth"
+            },
+            {
+                "enabled": true,
+                "id": "battery"
+            }
+        ],
+        "tray": {
+            "background": true,
+            "compact": true,
+            "recolour": true
+        },
+        "workspaces": {
+            "activeIndicator": true,
+            "activeTrail": true,
+            "maxWindowIcons": 9,
+            "occupiedBg": true,
+            "showWindows": true,
+            "shown": 10
+        }
+    },
+    "dashboard": {
+        "dragThreshold": 25,
+        "enabled": true,
+        "showClockSeconds": true,
+        "showDashboard": true,
+        "showMedia": true,
+        "showOnHover": true,
+        "showWeather": true
+    },
+    "general": {
+        "apps": {
+            "terminal": [
+                "kitty"
+            ]
+        }
+    },
+    "launcher": {
+        "actionPrefix": ">",
+        "enableDangerousActions": true,
+        "enabled": true,
+        "showOnHover": true,
+        "useFuzzy": {
+            "actions": true,
+            "apps": true,
+            "schemes": true,
+            "variants": true,
+            "wallpapers": true
+        },
+        "vimKeybinds": true
+    },
+    "notifs": {
+        "expire": true,
+        "openExpanded": true
+    },
+    "paths": {
+        "wallpaperDir": "/home/jhunk_0401/Pictures/Wallpapers"
+    },
+    "services": {
+        "audioIncrement": 0.02,
+        "brightnessIncrement": 0.02,
+        "defaultPlayer": "Brave",
+        "lyricsBackend": "Auto",
+        "maxVolume": 2,
+        "smartScheme": true,
+        "useTwelveHourClock": false,
+        "visualiserBars": 55
+    },
+    "sidebar": {
+        "dragThreshold": 70,
+        "enabled": true
+    },
+    "utilities": {
+        "quickToggles": [
+            {
+                "enabled": true,
+                "id": "wifi"
+            },
+            {
+                "enabled": true,
+                "id": "bluetooth"
+            },
+            {
+                "enabled": true,
+                "id": "mic"
+            },
+            {
+                "enabled": true,
+                "id": "settings"
+            },
+            {
+                "enabled": true,
+                "id": "gameMode"
+            },
+            {
+                "enabled": true,
+                "id": "dnd"
+            },
+            {
+                "enabled": true,
+                "id": "vpn"
+            }
+        ],
+        "toasts": {
+            "nowPlaying": true
+        }
+    }
+}
